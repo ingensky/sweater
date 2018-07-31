@@ -3,7 +3,7 @@
 <@c.page>
 Register new user
 
-    ${message}
+    ${message!}
 
 
 <@l.login "/registration" />
