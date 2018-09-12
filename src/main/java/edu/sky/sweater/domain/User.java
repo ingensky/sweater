@@ -1,11 +1,13 @@
 package edu.sky.sweater.domain;
 
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Set;
 
@@ -17,13 +19,21 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Username cannot be empty")
+//    @Length(max = 2018, message = "Message too long")
     private String username;
 
+    @NotBlank(message = "Password cannot be empty")
     private String password;
+
+    @Transient
+    @NotBlank(message = "Password confirmer cannot be empty")
+    private String password2;
 
     private boolean active;
 
-    @Email
+    @Email(message = "invalid email")
+    @NotBlank(message = "Email cannot be empty")
     private String email;
 
     private String activationCode;
@@ -118,5 +128,15 @@ public class User implements UserDetails {
 
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
+    }
+
+
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
     }
 }
