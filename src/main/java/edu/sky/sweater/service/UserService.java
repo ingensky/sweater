@@ -127,4 +127,14 @@ public class UserService implements UserDetailsService {
             sendInvite(user);
         }
     }
+
+    public void subscribe(User authUser, User user) {
+        user.getSubscribers().add(authUser);
+        userRepo.save(user);
+    }
+
+    public void unsubscribe(User authUser, User user) {
+        user.getSubscribers().remove(authUser);
+        userRepo.save(user);
+    }
 }
